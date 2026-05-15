@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browser Detector</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      word-break: break-word;
+    }
+
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+    }
+
+    .green {
+      color: #22c55e;
+      font-weight: bold;
+    }
+
+    .red {
+      color: #ef4444;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>WebView / Facebook Detector</h1>
+
+  <div class="box">
+    <h3>Browser Type</h3>
+    <p id="browser"></p>
+  </div>
+
+  <div class="box">
+    <h3>User Agent</h3>
+    <p id="ua"></p>
+  </div>
+
+  <div class="box">
+    <h3>Referrer</h3>
+    <p id="ref"></p>
+  </div>
+
+  <script>
+    const ua = navigator.userAgent;
+    const ref = document.referrer;
+
+    document.getElementById("ua").innerText = ua;
+    document.getElementById("ref").innerText = ref || "No Referrer";
+
+    let result = "Normal Browser";
+    let cls = "green";
+
+    if (ua.includes("FBAN") || ua.includes("FBAV")) {
+      result = "Facebook In-App Browser Detected";
+      cls = "red";
+    }
+    else if (ua.includes("Instagram")) {
+      result = "Instagram In-App Browser Detected";
+      cls = "red";
+    }
+    else if (ua.includes("wv")) {
+      result = "Android WebView Detected";
+      cls = "red";
+    }
+
+    document.getElementById("browser").innerHTML =
+      `<span class="${cls}">${result}</span>`;
+  </script>
+
+</body>
+</html>
